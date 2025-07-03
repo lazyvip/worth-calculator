@@ -873,7 +873,6 @@ const ShareCard: React.FC<ShareCardProps> = (props) => {
                     />
                     <div className="flex flex-col">
                       <div className="text-sm font-medium text-gray-700">{t('share_custom_made')}</div>
-                      <div className="text-sm text-gray-500">worthjob.zippland.com</div>
                     </div>
                   </div>
                   <img 
