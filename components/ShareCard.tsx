@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from './LanguageContext';
 import { countryNames } from './LanguageContext'; // 导入countryNames对象
+import QRCode from 'qrcode';
 
 // 扩展接口，支持更多属性
 interface ShareCardProps {
@@ -222,11 +223,35 @@ const ShareCard: React.FC<ShareCardProps> = (props) => {
   
   // 客户端渲染标志
   const [isClient, setIsClient] = useState(false);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>('');
   
   // 确保只在客户端执行
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // 生成二维码
+  useEffect(() => {
+    const generateQRCode = async () => {
+      try {
+        const qrCodeUrl = await QRCode.toDataURL('https://worthjob.lazytool.top/', {
+          width: 64,
+          margin: 1,
+          color: {
+            dark: '#000000',
+            light: '#FFFFFF'
+          }
+        });
+        setQrCodeDataUrl(qrCodeUrl);
+      } catch (error) {
+        console.error('生成二维码失败:', error);
+      }
+    };
+
+    if (isClient) {
+      generateQRCode();
+    }
+  }, [isClient]);
   
   // 页面载入动画效果
   useEffect(() => {
@@ -872,11 +897,17 @@ const ShareCard: React.FC<ShareCardProps> = (props) => {
                       <div className="text-sm font-medium text-gray-700">{t('share_custom_made')}</div>
                     </div>
                   </div>
-                  <img 
-                    src="/website.png" 
-                    alt=""
-                    className="h-16 w-16 opacity-85" 
-                  />
+                  {qrCodeDataUrl ? (
+                    <img 
+                      src={qrCodeDataUrl} 
+                      alt="QR Code"
+                      className="h-16 w-16 opacity-85" 
+                    />
+                  ) : (
+                    <div className="h-16 w-16 bg-gray-200 rounded opacity-85 flex items-center justify-center">
+                      <span className="text-xs text-gray-500">QR</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
