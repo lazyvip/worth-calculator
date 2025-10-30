@@ -957,6 +957,19 @@ const SalaryCalculator = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-4 sm:p-6">
+      {/* 懒人工具箱按钮 */}
+      <div className="mb-4">
+        <Link 
+          href="https://lazytool.top/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
+        >
+          <Star className="w-4 h-4" />
+          懒人工具箱
+        </Link>
+      </div>
+      
       <div className="mb-4 text-center">
         <h1 className="text-3xl md:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 py-2">{t('title')}</h1>
         
